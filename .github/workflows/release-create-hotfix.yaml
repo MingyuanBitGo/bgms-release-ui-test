@@ -39,36 +39,37 @@
       summary-dry-run:
         runs-on: ubuntu-latest
         steps:
-            - name: summary-dry-run
-              run: echo 'summary-dry-run'
+            - name: Test summary-dry-run
+              run: echo 'This is to test summary-dry-run'
 
 
       push-rel-branch:
         runs-on: ubuntu-latest
         steps:
-            - name: push-rel-branch
-              run: echo 'push-rel-branch'
+            - name: Test push-rel-branch
+              run: echo 'This is to test push-rel-branch'
         # only run write commands if dryrun is not explicitly set
 
       wait-for-images-to-build:
         runs-on: ubuntu-latest
         steps:
-            - name: wait-for-images-to-build
-              run: echo 'wait-for-images-to-build'
+            - name: Test wait-for-images-to-build
+              run: echo 'This is to test wait-for-images-to-build'
+
       fake-rc-build-info-if-opted-in:
         runs-on: ubuntu-latest
         steps:
-            - name: fake-rc-build-info-if-opted-in
-              run: echo 'fake-rc-build-info-if-opted-in'
+            - name: Test fake-rc-build-info-if-opted-in
+              run: echo 'This is to test fake-rc-build-info-if-opted-in'
 
       tag-rc:
         runs-on: ubuntu-latest
         steps:
-            - name: tag-rc
-              run: echo 'tag-rc'
+            - name: Test tag-rc
+              run: echo 'This is to test tag-rc'
     
       wait-for-rc-and-summarize:
         runs-on: ubuntu-latest
         steps:
-            - name: wait-for-rc-and-summarize
-              run: echo 'wait-for-rc-and-summarize'
+            - name: Test wait-for-rc-and-summarize
+              run: echo 'This is to test wait-for-rc-and-summarize'
