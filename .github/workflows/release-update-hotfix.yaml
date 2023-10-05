@@ -1,0 +1,71 @@
+---
+    name: (Release) Update Hotfix
+    
+    on:
+      workflow_dispatch:
+        inputs:
+          allow-fast-forward-despite-cherry-picks:
+            description: Allow fast forward to a more recent merge commit despite cherry picks
+            type: boolean
+            required: false
+            default: false
+          dryrun:
+            description: 'Dry run - print write cmds'
+            type: boolean
+            required: false
+            default: false
+    
+    concurrency:
+      group: ${{ github.workflow }}
+    
+    permissions:
+      id-token: write
+      actions: write
+      contents: write
+      checks: read
+      statuses: read
+      pull-requests: read
+    
+    jobs:
+      summary-dry-run:
+        runs-on: ubuntu-latest
+        
+      push-rel-branch:
+        name: Update Hotfix Release
+        # only run write commands if dryrun is not explicitly set
+        runs-on: ubuntu-latest
+        needs: summary-dry-run
+    
+      wait-for-images-to-build:
+        name: wait-for-images-to-build
+        needs:
+          - summary-dry-run
+          - push-rel-branch
+        runs-on: ubuntu-latest
+    
+      fake-rc-build-info-if-opted-in:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Test fake-rc-build-info-if-opted-in
+              run: echo 'This is to test fake-rc-build-info-if-opted-in'
+    
+      tag-rc:
+        name: tag-rc
+        needs:
+          - summary-dry-run
+          - push-rel-branch
+          - wait-for-images-to-build
+        runs-on: ubuntu-latest
+    
+      wait-for-rc-and-summarize:
+        name: wait-for-rc-and-summarize
+        needs:
+          - summary-dry-run
+          - push-rel-branch
+          - wait-for-images-to-build
+          - tag-rc
+        runs-on: ubuntu-latest
+    
+    
+    
+    

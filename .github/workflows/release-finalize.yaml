@@ -1,0 +1,55 @@
+---
+    name: (Release) Finalize Release
+    
+    on:
+      workflow_dispatch:
+        inputs:
+          dryrun:
+            description: 'Dry run - print write cmds'
+            type: boolean
+            required: false
+            default: false
+    
+    concurrency:
+      group: ${{ github.workflow }}
+    
+    permissions:
+      id-token: write
+      actions: write
+      contents: write
+      checks: read
+      statuses: read
+      pull-requests: read
+    
+    # TODO: Add the dry run check to every job, especially the ones which run always
+    jobs:
+      summary-dry-run:
+        runs-on: ubuntu-latest
+
+      tag-release:
+        name: Finalize Release
+        runs-on: ubuntu-latest
+
+      preflight-checks:
+        runs-on: ubuntu-latest
+
+      ensure-docker-image-overrides-present:
+        runs-on: ubuntu-latest
+    
+      psm-acquire-lock:
+        runs-on: ubuntu-latest
+    
+      ########################## prod deployment ############################
+      argocd-deploy-prod:
+        runs-on: ubuntu-latest
+
+      ########################## prod-fo deployment ############################
+      argocd-deploy-prod-fo:
+        runs-on: ubuntu-latest
+
+      psm-release-lock:
+        runs-on: ubuntu-latest
+
+      post-release-notes:
+        runs-on: ubuntu-latest
+           
