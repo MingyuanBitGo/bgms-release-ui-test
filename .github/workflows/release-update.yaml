@@ -29,12 +29,18 @@
     jobs:
       summary-dry-run:
         runs-on: ubuntu-latest
-        
+        steps:
+            - name: Test summary-dry-run
+              run: echo 'This is to test summary-dry-run'
+
       push-rel-branch:
         name: Update Release
         # only run write commands if dryrun is not explicitly set
         runs-on: ubuntu-latest
         needs: summary-dry-run
+        steps:
+            - name: Test Update Release
+              run: echo 'This is to test Update Release'
     
       wait-for-images-to-build:
         name: wait-for-images-to-build
@@ -42,6 +48,9 @@
           - summary-dry-run
           - push-rel-branch
         runs-on: ubuntu-latest
+        steps:
+            - name: Test wait-for-images-to-build
+              run: echo 'This is to test wait-for-images-to-build'
     
       tag-rc:
         name: tag-rc
@@ -50,6 +59,9 @@
           - push-rel-branch
           - wait-for-images-to-build
         runs-on: ubuntu-latest
+        steps:
+            - name: Test tag-rc
+              run: echo 'This is to test tag-rc'
     
       wait-for-rc-and-summarize:
         name: wait-for-rc-and-summarize
@@ -59,6 +71,9 @@
           - wait-for-images-to-build
           - tag-rc
         runs-on: ubuntu-latest
+        steps:
+            - name: Test wait-for-rc-and-summarize
+              run: echo 'This is to test wait-for-rc-and-summarize'
     
     
     

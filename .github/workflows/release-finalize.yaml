@@ -25,31 +25,58 @@
     jobs:
       summary-dry-run:
         runs-on: ubuntu-latest
+        steps:
+            - name: Test wait-for-rc-and-summarize
+              run: echo 'This is to test summary-dry-run'
 
       tag-release:
         name: Finalize Release
         runs-on: ubuntu-latest
+        steps:
+            - name: Test tag-release
+              run: echo 'This is to test tag-release'
 
       preflight-checks:
         runs-on: ubuntu-latest
+        steps:
+            - name: Test preflight-checks
+              run: echo 'This is to test preflight-checks'
 
       ensure-docker-image-overrides-present:
         runs-on: ubuntu-latest
+        steps:
+            - name: Test ensure-docker-image-overrides-present
+              run: echo 'This is to test ensure-docker-image-overrides-present'
     
       psm-acquire-lock:
         runs-on: ubuntu-latest
+        steps:
+            - name: Test psm-acquire-lock
+              run: echo 'This is to test psm-acquire-lock'
     
       ########################## prod deployment ############################
       argocd-deploy-prod:
         runs-on: ubuntu-latest
+        steps:
+            - name: Test argocd-deploy-prod
+              run: echo 'This is to test argocd-deploy-prod'
 
       ########################## prod-fo deployment ############################
       argocd-deploy-prod-fo:
         runs-on: ubuntu-latest
+        steps:
+            - name: Test argocd-deploy-prod-fo
+              run: echo 'This is to test argocd-deploy-prod-foe'
 
       psm-release-lock:
         runs-on: ubuntu-latest
+        steps:
+            - name: Test psm-release-lock
+              run: echo 'This is to test psm-release-lock'
 
       post-release-notes:
         runs-on: ubuntu-latest
+        steps:
+            - name: Test post-release-notes
+              run: echo 'This is to test post-release-notes'
            
