@@ -4,6 +4,11 @@
     on:
       workflow_dispatch:
         inputs:
+          manualConflictResolution:
+            description: manualConflictResolution
+            type: boolean
+            required: false
+            default: false
           dryrun:
             description: 'Dry run - print write cmds'
             type: boolean
