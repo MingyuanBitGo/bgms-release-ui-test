@@ -1,0 +1,128 @@
+name: on-demand-build-staging
+on:
+  workflow_dispatch:
+    inputs:
+      build-git-sha:
+        type: string
+        description: Commit sha which is to be deployed to staging
+
+permissions:
+  id-token: write
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  # ensure all the deployment specs are available for staging.
+  preflight-checks:
+    runs-on: ubuntu-latest
+    outputs:
+      build_started_unix: ${{ steps.build-start-time.outputs.build_started_unix }}
+      build_started_utc: ${{ steps.build-start-time.outputs.build_started_utc }}
+      commitedat: ${{ steps.get-commit-time.outputs.commitedat }}
+    #   staging-deploy-specs: ${{ steps.get-deployment-specs.outputs.staging-deploy-specs }}
+    steps:
+      - name: build-start-time
+        id: build-start-time
+        shell: bash
+        run: |
+          echo "build_started_unix=$(date +%s)" >> "$GITHUB_OUTPUT"
+          echo "build_started_utc=$(date -u +%Y-%m-%dT%H:%M:%S%Z)" >> "$GITHUB_OUTPUT"
+
+      - name: workflow-input-summary
+        id: workflow-input-summary
+        shell: bash
+        run: |
+          echo Workflow Inputs:
+          echo ---
+          echo "${{ toJSON(github.event.inputs) }}"
+          {
+            echo "## Workflow Inputs";
+            echo "\`\`\`";
+            echo "${{ toJSON(github.event.inputs) }}";
+            echo "\`\`\`";
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: get-commit-time
+        id: get-commit-time
+        shell: bash
+        run: |
+          echo "commitedat=$(git show -s --format=%ct ${{ inputs.build-git-sha }})" >> "$GITHUB_OUTPUT"
+
+    #   - name: get-deployment-specs
+    #     id: get-deployment-specs
+    #     shell: bash
+    #     run: |
+    #       echo "staging-deploy-specs=$(jq -rc '.staging' ./.github/files/k8s-deploy-specs.json)" >> "$GITHUB_OUTPUT"
+
+  ensure-docker-image-overrides-present:
+    runs-on: ubuntu-latest
+    needs:
+      - preflight-checks
+    steps:
+      - name: Test ensure-docker-image-overrides-present
+        run: echo 'ensure-docker-image-overrides-present'
+
+
+  psm-acquire-lock:
+    needs:
+      - preflight-checks
+      - ensure-docker-image-overrides-present
+    runs-on: ubuntu-latest
+    steps:
+        - name: Test psm-acquire-lock
+          run: echo 'psm-acquire-lock'
+
+  argocd-deploy-staging:
+    runs-on: ubuntu-latest
+    needs:
+      - preflight-checks
+      - ensure-docker-image-overrides-present
+      - psm-acquire-lock
+
+    steps:
+      - name: Test ensure-docker-image-overrides-present
+        run: echo 'ensure-docker-image-overrides-present'
+
+  psm-release-lock:
+    runs-on: ubuntu-latest
+    needs:
+      - preflight-checks
+      - ensure-docker-image-overrides-present
+      - psm-acquire-lock
+      - argocd-deploy-staging
+
+    steps:
+      - name: Test psm-release-lock
+        run: echo 'psm-release-lock'
+
+  aggregate-outcome:
+    runs-on: ubuntu-latest
+    needs:
+      - preflight-checks
+      - ensure-docker-image-overrides-present
+      - argocd-deploy-staging
+    steps:
+      - name: Test aggregate-outcome
+        run: echo 'aggregate-outcome'
+
+  upload-build-info:
+    needs:
+      - preflight-checks
+      - aggregate-outcome
+      - argocd-deploy-staging
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test upload-build-info
+        run: echo 'upload-build-info'
+
+  wait-for-staging-and-summarize:
+    needs:
+      - preflight-checks
+      - aggregate-outcome
+      - argocd-deploy-staging
+      - upload-build-info
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test wait-for-staging-and-summarize
+        run: echo 'wait-for-staging-and-summarize'
