@@ -71,8 +71,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
         - name: Test psm-acquire-lock
-          run: echo 'psm-acquire-lock'
-
+          run: |
+            echo "commitedat=$(git show -s --format=%ct ${{ inputs.build-git-sha }})" >> "$GITHUB_OUTPUT"
+            
   argocd-deploy-staging:
     runs-on: ubuntu-latest
     needs:
