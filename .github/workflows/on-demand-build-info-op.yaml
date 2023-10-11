@@ -52,3 +52,10 @@ jobs:
     steps:
       - name: Test set-build-info-status
         run: echo 'set-build-info-status'
+
+
+  sleep-for-testing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test set-build-info-status
+        run: sleep 600
