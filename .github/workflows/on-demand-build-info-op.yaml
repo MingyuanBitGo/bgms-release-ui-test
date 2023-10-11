@@ -1,0 +1,54 @@
+name: (Release) Mark Build for Promotion
+on:
+  workflow_dispatch:
+    inputs:
+      build-git-sha:
+        type: string
+        description: Commit sha to promote
+        required: true
+      environment:
+        type: choice
+        description: the environment on which you want to operate
+        required: true
+        default: 'staging'
+        options:
+          - pr
+          - dev
+          - staging
+          - test
+      op-type:
+        type: choice
+        description: the type of operation to perform
+        required: true
+        default: mark-for-promotion
+        options:
+          - override-build-failure
+          - mark-for-promotion
+
+permissions:
+  id-token: write
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  build-input-summary:
+    runs-on: ubuntu-latest
+    steps:
+      - shell: bash
+        run: |
+          echo Inputs:
+          echo ---
+          echo "${{ toJSON(github.event.inputs) }}"
+          {
+            echo "## Inputs";
+            echo "\`\`\`";
+            echo "${{ toJSON(github.event.inputs) }}";
+            echo "\`\`\`";
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  set-build-info-status:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test set-build-info-status
+        run: echo 'set-build-info-status'
