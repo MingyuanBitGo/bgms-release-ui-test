@@ -7,23 +7,15 @@ on:
         description: Commit sha to promote
         required: true
       environment:
-        type: choice
+        type: string
         description: the environment on which you want to operate
         required: true
         default: 'staging'
-        options:
-          - pr
-          - dev
-          - staging
-          - test
       op-type:
-        type: choice
+        type: string
         description: the type of operation to perform
         required: true
         default: mark-for-promotion
-        options:
-          - override-build-failure
-          - mark-for-promotion
 
 permissions:
   id-token: write
