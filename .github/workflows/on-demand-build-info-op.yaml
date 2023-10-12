@@ -58,4 +58,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Test set-build-info-status
-        run: sleep 200
+        run: sleep 100
