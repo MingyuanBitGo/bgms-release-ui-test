@@ -1,6 +1,6 @@
 #!/bin/bash
 
-declare -a tags=("v1.373.0" "v1.373.1-rc.2")
+declare -a tags=("v1.373.1" "v1.373.1-rc.2")
 
 for tag in "${tags[@]}"
 do
