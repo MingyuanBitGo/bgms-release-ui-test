@@ -1,5 +1,5 @@
 ---
-    name: (Release) Create Hotfix
+    name: (Release) Cherry-Pick to Release
     
     on:
       workflow_dispatch:
