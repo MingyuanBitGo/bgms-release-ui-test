@@ -1,0 +1,70 @@
+---
+    name: (Release) Cherry-Pick to Release
+    
+    on:
+      # release workflows being punted until we have a more stable CI system
+      # where we can run these flows more reliably.
+      #
+      # schedule:
+      #   - cron: '0 17 * * 2,4' # Runs every Tuesday and Thursday at 9 AM PST
+      workflow_dispatch:
+        inputs:
+          dryrun:
+            description: 'Dry run - print writes'
+            type: boolean
+            required: false
+            default: false
+    
+    concurrency:
+      group: ${{ github.workflow }}
+    
+    permissions:
+      id-token: write
+      actions: write
+      contents: write
+      checks: read
+      statuses: read
+      pull-requests: read
+    
+    jobs:
+      summary-dry-run:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Test summary-dry-run
+              run: echo 'This is to test summary-dry-run'
+
+
+      push-rel-branch:
+        name: Create Release
+        runs-on: ubuntu-latest
+        steps:
+            - name: Create Release
+              run: echo 'This is to Create cherry-pick Release'
+              
+      wait-for-images-to-build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Test wait-for-images-to-build
+              run: echo 'This is to test wait-for-images-to-build'
+
+      tag-rc:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Test tag-rc
+              run: echo 'This is to test tag-rc'
+
+      wait-for-rc-and-summarize:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Test wait-for-rc-and-summarize
+              run: echo 'This is to test wait-for-rc-and-summarize'
+
+      deployment_approval:
+        if:
+          (github.event.inputs.dryrun != 'true')
+        runs-on: ubuntu-latest
+        environment:
+          name: deploy
+        steps:
+        - name: Test approval
+          run: echo 'This is to test approval'
