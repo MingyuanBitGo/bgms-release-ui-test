@@ -1,16 +1,20 @@
 ---
-    name: (Release) Cherry-Pick to Release
+    name: (Release) Create Hotfix
     
     on:
-      # release workflows being punted until we have a more stable CI system
-      # where we can run these flows more reliably.
-      #
-      # schedule:
-      #   - cron: '0 17 * * 2,4' # Runs every Tuesday and Thursday at 9 AM PST
       workflow_dispatch:
         inputs:
+          pr-numbers:
+            description: PR number delimited by space - containing hotfix commits
+            required: true
+            type: string
+          allow_merge_strategy_theirs:
+            description: Allow merge strategy theirs during cherry-picks
+            type: boolean
+            required: false
+            default: false
           dryrun:
-            description: 'Dry run - print writes'
+            description: 'Dry run - print write cmds'
             type: boolean
             required: false
             default: false
