@@ -132,7 +132,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Create Artifact
-        run: echo "This is the build artifact for commit SHA." > main-${{ github.event.inputs.build-git-sha }}-artifact.txt
+        run: echo "This is the build artifact for commit SHA." > main-${{ github.event.inputs.build-git-sha }}-docker-images.txt
 
       - name: Upload SHA as Artifact
         uses: actions/upload-artifact@v2
