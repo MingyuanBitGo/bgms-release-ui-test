@@ -124,8 +124,8 @@ jobs:
       - name: Upload SHA as Artifact
         uses: actions/upload-artifact@v2
         with: 
-          name: main-1234567890-artifact.txt
-          path: main-1234567890-artifact.txt
+          name: main-wdas12321dsw-docker-images.txt
+          path: main-wdas12321dsw-docker-images.txt
 
   fail-job:
     runs-on: ubuntu-latest

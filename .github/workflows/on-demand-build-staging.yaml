@@ -137,7 +137,7 @@ jobs:
       - name: Upload SHA as Artifact
         uses: actions/upload-artifact@v2
         with: 
-          name: main-${{ github.event.inputs.build-git-sha }}-artifact.txt
-          path: main-${{ github.event.inputs.build-git-sha }}-artifact.txt
+          name: main-${{ github.event.inputs.build-git-sha }}-docker-images.txt
+          path: main-${{ github.event.inputs.build-git-sha }}-docker-images.txt
 
     
