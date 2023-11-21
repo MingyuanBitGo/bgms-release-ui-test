@@ -4,8 +4,8 @@
     on:
       workflow_dispatch:
         inputs:
-          manualConflictResolution:
-            description: manualConflictResolution
+          last_hotfix_had_manual_conflict_resolution:
+            description: Did the last hotfix that went to prod include a manual conflict resolution
             type: boolean
             required: false
             default: false
