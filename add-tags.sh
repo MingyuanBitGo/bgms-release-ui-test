@@ -9,3 +9,4 @@ do
 done
 
 git push origin --tags
+
