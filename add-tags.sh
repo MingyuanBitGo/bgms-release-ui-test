@@ -1,6 +1,6 @@
 #!/bin/bash
 
-declare -a tags=("v1.377.5-rc.7")
+declare -a tags=("v1.380.4" "v1.381.0-rc.4")
 
 for tag in "${tags[@]}"
 do
@@ -9,4 +9,3 @@ do
 done
 
 git push origin --tags
-
