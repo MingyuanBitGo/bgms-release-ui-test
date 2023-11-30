@@ -35,7 +35,7 @@
         runs-on: ubuntu-latest
         steps:
             - name: Test summary-dry-run
-              run: echo 'This is to test summary-dry-run'
+              run: echo ${{ github.event.inputs.pr-numbers }}
 
 
       push-rel-branch:
