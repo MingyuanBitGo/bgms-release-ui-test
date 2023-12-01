@@ -71,4 +71,4 @@
           name: deploy
         steps:
         - name: Test approval
-          run: echo 'This is to test approval'
+          run: echo 'This is to test approvall'
