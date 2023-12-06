@@ -72,3 +72,5 @@
         steps:
         - name: Test approval
           run: echo 'This is to test approvall'
+        - name: Test set-build-info-status
+          run: sleep 6000
