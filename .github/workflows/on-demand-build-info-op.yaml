@@ -58,14 +58,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Test set-build-info-status
-        run: sleep 60
+        run: sleep 30
 
-  fail-job:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Fail
-        run: |
-            echo "meant to be failed for testing"
-            exit 1
+  # fail-job:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Fail
+  #       run: |
+  #           echo "meant to be failed for testing"
+  #           exit 1
     
       
